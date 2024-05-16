@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="org.example.DatabaseConnection" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,12 +23,12 @@
             ResultSet rs = null;
             try {
                 Class.forName("org.postgresql.Driver");
-                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/tritonlink132b", "arthur", "");
+                conn = DatabaseConnection.getConnection();
                 String selectSQL = "SELECT DISTINCT s.student_id, s.first_name, s.middle_name, s.last_name " +
                         "FROM student s " +
                         "JOIN enrollment e ON s.student_id = e.student_id " +
                         "JOIN class c ON e.class_id = c.class_id " +
-                        "WHERE s.is_enrolled = true AND c.year = 2018 AND c.quarter = 'Spring'";
+                        "WHERE s.is_enrolled = true AND c.year = 2018 AND c.quarter = 'SPRING'";
                 pstmt = conn.prepareStatement(selectSQL);
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
@@ -35,8 +36,9 @@
                     String firstName = rs.getString("first_name");
                     String middleName = rs.getString("middle_name");
                     String lastName = rs.getString("last_name");
+                    String fullName = firstName + (middleName != null && !middleName.isEmpty() ? " " + middleName : "") + " " + lastName;
         %>
-        <option value="<%= studentId %>"><%= studentId %> - <%= firstName %> <%= middleName %> <%= lastName %></option>
+        <option value="<%= studentId %>"><%= fullName %></option>
         <%
                 }
             } catch (Exception e) {
@@ -54,20 +56,39 @@
     String studentIdParam = request.getParameter("student_id");
     if (studentIdParam != null && !studentIdParam.isEmpty()) {
         int studentId = Integer.parseInt(studentIdParam);
+        String studentName = "";
+        try {
+            conn = DatabaseConnection.getConnection();
+            String nameQuery = "SELECT first_name, middle_name, last_name FROM student WHERE student_id = ?";
+            pstmt = conn.prepareStatement(nameQuery);
+            pstmt.setInt(1, studentId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String firstName = rs.getString("first_name");
+                String middleName = rs.getString("middle_name");
+                String lastName = rs.getString("last_name");
+                studentName = firstName + (middleName != null && !middleName.isEmpty() ? " " + middleName : "") + " " + lastName;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(Exception e) {}
+            if (pstmt != null) try { pstmt.close(); } catch(Exception e) {}
+            if (conn != null) try { conn.close(); } catch(Exception e) {}
+        }
 %>
-<h2>Classes Taken by Student <%= studentId %></h2>
+<h2>Classes Taken by <%= studentName %></h2>
 <%
     conn = null;
     pstmt = null;
     rs = null;
     try {
-        Class.forName("org.postgresql.Driver");
-        conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/tritonlink132b", "arthur", "");
+        conn = DatabaseConnection.getConnection();
 
         String query = "SELECT c.class_id, c.course_id, c.year, c.quarter, c.title, e.unit, e.section_id " +
                 "FROM class c " +
                 "JOIN enrollment e ON c.class_id = e.class_id " +
-                "WHERE e.student_id = ? AND c.year = 2018 AND c.quarter = 'Spring'";
+                "WHERE e.student_id = ? AND c.year = 2018 AND c.quarter = 'SPRING'";
         pstmt = conn.prepareStatement(query);
         pstmt.setInt(1, studentId);
         rs = pstmt.executeQuery();

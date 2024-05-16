@@ -30,6 +30,11 @@
     <li><a href="form/MeetingEntry.jsp" target="contentFrame">Meeting</a></li>
     <li><a href="form/ReviewSessionEntry.jsp" target="contentFrame">Review Session</a></li>
 </ul>
-<iframe name="contentFrame"></iframe> <!-- This is where the content from links will be displayed -->
+<b>Query From</b>
+<ul>
+    <li><a href="query/ClassesTakenByStudent.jsp" target="contentFrame">Classes Taken by Student</a></li>
+    <li><a href="query/ClassRoster.jsp" target="contentFrame">Class Roaster</a></li>
+</ul>
+<iframe name="contentFrame"></iframe>
 </body>
 </html>
