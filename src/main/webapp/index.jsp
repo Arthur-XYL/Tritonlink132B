@@ -30,10 +30,11 @@
     <li><a href="form/MeetingEntry.jsp" target="contentFrame">Meeting</a></li>
     <li><a href="form/ReviewSessionEntry.jsp" target="contentFrame">Review Session</a></li>
 </ul>
-<b>Query From</b>
+<b>Query Form</b>
 <ul>
     <li><a href="query/ClassesTakenByStudent.jsp" target="contentFrame">Classes Taken by Student</a></li>
     <li><a href="query/ClassRoster.jsp" target="contentFrame">Class Roaster</a></li>
+    <li><a href="query/StudentGrade.jsp" target="contentFrame">Student Grade</a></li>
 </ul>
 <iframe name="contentFrame"></iframe>
 </body>

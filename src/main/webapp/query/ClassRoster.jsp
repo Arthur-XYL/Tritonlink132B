@@ -41,6 +41,7 @@
 
     if (classTitle != null && classQuarter != null && classYearParam != null && !classTitle.isEmpty() && !classQuarter.isEmpty() && !classYearParam.isEmpty()) {
         int classYear = Integer.parseInt(classYearParam);
+
 %>
 <h2>Class Roster for <%= classTitle %> (<%= classQuarter %> <%= classYear %>)</h2>
 <%
@@ -55,11 +56,12 @@
                 "JOIN enrollment e ON s.student_id = e.student_id " +
                 "JOIN section sec ON e.section_id = sec.section_id AND e.class_id = sec.class_id " +
                 "JOIN class c ON sec.class_id = c.class_id " +
-                "WHERE c.title = ? AND c.quarter = ? AND c.year = ?";
+                "WHERE c.title = ? AND c.quarter = CAST(? AS quarter_type) AND c.year = ?";
         pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, classTitle);
+        pstmt.setString(1, classTitle.trim());
         pstmt.setString(2, classQuarter);
         pstmt.setInt(3, classYear);
+
         rs = pstmt.executeQuery();
 
         if (!rs.isBeforeFirst()) {
@@ -92,6 +94,7 @@
             int degreeId = rs.getInt("degree_id");
             int units = rs.getInt("unit");
             String gradeType = rs.getString("grade_type");
+
     %>
     <tr>
         <td><%= studentId %></td>

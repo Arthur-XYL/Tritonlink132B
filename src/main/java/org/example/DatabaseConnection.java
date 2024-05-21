@@ -1,8 +1,40 @@
+//package org.example;
+//
+//import java.io.InputStream;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.util.Properties;
+//
+//public class DatabaseConnection {
+//    private static final String PROPERTIES_FILE = "database.properties";
+//    private static Properties props = new Properties();
+//
+//    static {
+//        try (InputStream input = DatabaseConnection.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE)) {
+//            if (input == null) {
+//                throw new RuntimeException("Unable to find " + PROPERTIES_FILE);
+//            }
+//            // Load the properties file
+//            props.load(input);
+//        } catch (Exception e) {
+//            throw new RuntimeException("Failed to load database properties", e);
+//        }
+//    }
+//
+//    public static Connection getConnection() throws Exception {
+//        String url = props.getProperty("db.url");
+//        String username = props.getProperty("db.username");
+//        String password = props.getProperty("db.password");
+//
+//        return DriverManager.getConnection(url, username, password);
+//    }
+//}
 package org.example;
 
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnection {
@@ -10,18 +42,23 @@ public class DatabaseConnection {
     private static Properties props = new Properties();
 
     static {
-        try (InputStream input = DatabaseConnection.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE)) {
-            if (input == null) {
-                throw new RuntimeException("Unable to find " + PROPERTIES_FILE);
-            }
+        try {
+            // Load the PostgreSQL driver
+            Class.forName("org.postgresql.Driver");
+
             // Load the properties file
-            props.load(input);
+            try (InputStream input = DatabaseConnection.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE)) {
+                if (input == null) {
+                    throw new RuntimeException("Unable to find " + PROPERTIES_FILE);
+                }
+                props.load(input);
+            }
         } catch (Exception e) {
             throw new RuntimeException("Failed to load database properties", e);
         }
     }
 
-    public static Connection getConnection() throws Exception {
+    public static Connection getConnection() throws SQLException {
         String url = props.getProperty("db.url");
         String username = props.getProperty("db.username");
         String password = props.getProperty("db.password");

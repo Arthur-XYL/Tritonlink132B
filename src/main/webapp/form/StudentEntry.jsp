@@ -34,6 +34,7 @@
     <thead>
     <tr>
         <th>Student Id</th>
+        <th>SSN</th>
         <th>First Name</th>
         <th>Middle Name</th>
         <th>Last Name</th>
@@ -47,6 +48,7 @@
     <tr>
         <form method="post">
             <td>N/A</td>
+            <td><input type="text" name="ssn" required></td>
             <td><input type="text" name="first_name" required></td>
             <td><input type="text" name="middle_name"></td>
             <td><input type="text" name="last_name" required></td>
@@ -75,27 +77,29 @@
             String action = request.getParameter("action");
 
             if ("insert".equals(action)) {
-                String insertSQL = "INSERT INTO student (first_name, middle_name, last_name, residency_status, is_enrolled, degree_id) VALUES (?, ?, ?, CAST(? AS residency_status_type), ?, ?)";
+                String insertSQL = "INSERT INTO student (ssn, first_name, middle_name, last_name, residency_status, is_enrolled, degree_id) VALUES (?, ?, ?, ?, CAST(? AS residency_status_type), ?, ?)";
                 pstmt = conn.prepareStatement(insertSQL);
-                pstmt.setString(1, request.getParameter("first_name"));
-                pstmt.setString(2, request.getParameter("middle_name"));
-                pstmt.setString(3, request.getParameter("last_name"));
-                pstmt.setString(4, request.getParameter("residency_status"));
-                pstmt.setBoolean(5, "on".equals(request.getParameter("is_enrolled")));
-                pstmt.setInt(6, Integer.parseInt(request.getParameter("degree_id")));
+                pstmt.setString(1, request.getParameter("ssn"));
+                pstmt.setString(2, request.getParameter("first_name"));
+                pstmt.setString(3, request.getParameter("middle_name"));
+                pstmt.setString(4, request.getParameter("last_name"));
+                pstmt.setString(5, request.getParameter("residency_status"));
+                pstmt.setBoolean(6, "on".equals(request.getParameter("is_enrolled")));
+                pstmt.setInt(7, Integer.parseInt(request.getParameter("degree_id")));
                 pstmt.executeUpdate();
             }
 
             if ("update".equals(action)) {
-                String updateSQL = "UPDATE student SET first_name = ?, middle_name = ?, last_name = ?, residency_status = CAST(? AS residency_status_type), is_enrolled = ?, degree_id = ? WHERE student_id = ?";
+                String updateSQL = "UPDATE student SET ssn = ?, first_name = ?, middle_name = ?, last_name = ?, residency_status = CAST(? AS residency_status_type), is_enrolled = ?, degree_id = ? WHERE student_id = ?";
                 pstmt = conn.prepareStatement(updateSQL);
-                pstmt.setString(1, request.getParameter("first_name"));
-                pstmt.setString(2, request.getParameter("middle_name"));
-                pstmt.setString(3, request.getParameter("last_name"));
-                pstmt.setString(4, request.getParameter("residency_status"));
-                pstmt.setBoolean(5, "on".equals(request.getParameter("is_enrolled")));
-                pstmt.setInt(6, Integer.parseInt(request.getParameter("degree_id")));
-                pstmt.setInt(7, Integer.parseInt(request.getParameter("student_id")));
+                pstmt.setString(1, request.getParameter("ssn"));
+                pstmt.setString(2, request.getParameter("first_name"));
+                pstmt.setString(3, request.getParameter("middle_name"));
+                pstmt.setString(4, request.getParameter("last_name"));
+                pstmt.setString(5, request.getParameter("residency_status"));
+                pstmt.setBoolean(6, "on".equals(request.getParameter("is_enrolled")));
+                pstmt.setInt(7, Integer.parseInt(request.getParameter("degree_id")));
+                pstmt.setInt(8, Integer.parseInt(request.getParameter("student_id")));
                 pstmt.executeUpdate();
             }
 
@@ -109,11 +113,12 @@
             conn.commit();
             conn.setAutoCommit(true);
 
-            String selectSQL = "SELECT student_id, first_name, middle_name, last_name, residency_status, is_enrolled, degree_id FROM student ORDER BY student_id";
+            String selectSQL = "SELECT student_id, ssn, first_name, middle_name, last_name, residency_status, is_enrolled, degree_id FROM student ORDER BY student_id";
             pstmt = conn.prepareStatement(selectSQL);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 int studentId = rs.getInt("student_id");
+                String ssn = rs.getString("ssn");
                 String firstName = rs.getString("first_name");
                 String middleName = rs.getString("middle_name");
                 String lastName = rs.getString("last_name");
@@ -124,6 +129,7 @@
     <tr>
         <form method="post">
             <td><%= studentId %></td>
+            <td><input type="text" name="ssn" value="<%= ssn %>" required></td>
             <td><input type="text" name="first_name" value="<%= firstName %>" required></td>
             <td><input type="text" name="middle_name" value="<%= middleName %>"></td>
             <td><input type="text" name="last_name" value="<%= lastName %>" required></td>

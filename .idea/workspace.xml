@@ -11,9 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="5e4a9217-d7bf-4168-bc8d-d8b91ebc09af" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/form/StudentEntry.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/form/StudentEntry.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/query/ClassRoster.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/query/ClassRoster.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/query/ClassesTakenByStudent.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/query/ClassesTakenByStudent.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,35 +63,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.TestDatabaseConnection.executor": "Run",
-    "JavaScript Debug.ClassEntry.jsp.executor": "Run",
-    "Maven.CSE132BTritonlink [clean].executor": "Run",
-    "Maven.CSE132BTritonlink [install].executor": "Run",
-    "Maven.TritonLink132B [clean].executor": "Run",
-    "Maven.TritonLink132B [install].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Tomcat Server.Tomcat 9.0.88.executor": "Run",
-    "Tomcat Server.Unnamed.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/arthur/Desktop/CSE 132B/TritonLink132B",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "/Users/arthur/Desktop/CSE132BTritonlink/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.TestDatabaseConnection.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.ClassEntry.jsp.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.CSE132BTritonlink [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.CSE132BTritonlink [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.TritonLink132B [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.TritonLink132B [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 9.0.88.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/arthur/Desktop/CSE 132B/TritonLink132B&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/arthur/Desktop/CSE132BTritonlink/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp" />
@@ -197,14 +199,9 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.TestDatabaseConnection" />
+      <item itemvalue="Application.DatabaseConnection" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.88" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.TestDatabaseConnection" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -239,7 +236,10 @@
       <workItem from="1715632086021" duration="3506000" />
       <workItem from="1715711854484" duration="9082000" />
       <workItem from="1715792882700" duration="6459000" />
-      <workItem from="1715882345970" duration="6507000" />
+      <workItem from="1715882345970" duration="8618000" />
+      <workItem from="1715964415604" duration="2630000" />
+      <workItem from="1716225591576" duration="17377000" />
+      <workItem from="1716302666676" duration="1766000" />
     </task>
     <servers />
   </component>
