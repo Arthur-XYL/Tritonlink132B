@@ -10,8 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e4a9217-d7bf-4168-bc8d-d8b91ebc09af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/form/MasterStudentEntry.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/form/UndergraduateEntry.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/query/RemainingDegreeRequirements.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/query/StudentGrade.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/query/StudentGrade.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/form/DegreeEntry.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/form/DegreeEntry.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +239,8 @@
       <workItem from="1715882345970" duration="8618000" />
       <workItem from="1715964415604" duration="2630000" />
       <workItem from="1716225591576" duration="17377000" />
-      <workItem from="1716302666676" duration="5974000" />
+      <workItem from="1716302666676" duration="8492000" />
+      <workItem from="1716397326533" duration="6919000" />
     </task>
     <servers />
   </component>

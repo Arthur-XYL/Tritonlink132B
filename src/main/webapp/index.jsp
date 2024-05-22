@@ -24,6 +24,8 @@
     <li><a href="form/SectionEntry.jsp" target="contentFrame">Sections</a></li>
     <li><a href="form/EnrollmentEntry.jsp" target="contentFrame">Enrollment</a></li>
     <li><a href="form/ThesisCommitteeEntry.jsp" target="contentFrame">Thesis Committee</a></li>
+    <li><a href="form/UndergraduateEntry.jsp" target="contentFrame">Undergraduate Entry</a></li>
+    <li><a href="form/MasterStudentEntry.jsp" target="contentFrame">Master Student Entry</a></li>
     <li><a href="form/PhDEntry.jsp" target="contentFrame">PhD Entry</a></li>
     <li><a href="form/FacultyThesisCommittee.jsp" target="contentFrame">Faculty Thesis Committee</a></li>
     <li><a href="form/ProbationEntry.jsp" target="contentFrame">Probation</a></li>
@@ -35,6 +37,7 @@
     <li><a href="query/ClassesTakenByStudent.jsp" target="contentFrame">Classes Taken by Student</a></li>
     <li><a href="query/ClassRoster.jsp" target="contentFrame">Class Roaster</a></li>
     <li><a href="query/StudentGrade.jsp" target="contentFrame">Student Grade</a></li>
+    <li><a href="query/RemainingDegreeRequirements.jsp" target="contentFrame">Student Remaining Degree Requirements</a></li>
 </ul>
 <iframe name="contentFrame"></iframe>
 </body>
