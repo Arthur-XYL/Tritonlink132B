@@ -10,11 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e4a9217-d7bf-4168-bc8d-d8b91ebc09af" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/form/MasterStudentEntry.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/form/UndergraduateEntry.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/query/RemainingDegreeRequirements.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/form/DegreeEntry.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/form/DegreeEntry.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -241,6 +237,8 @@
       <workItem from="1716225591576" duration="17377000" />
       <workItem from="1716302666676" duration="8492000" />
       <workItem from="1716397326533" duration="6919000" />
+      <workItem from="1716409405312" duration="884000" />
+      <workItem from="1716480603207" duration="823000" />
     </task>
     <servers />
   </component>
