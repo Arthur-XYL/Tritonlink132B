@@ -51,7 +51,7 @@
                 <select name="quarter" required>
                     <option value="FALL">Fall</option>
                     <option value="WINTER">Winter</option>
-                    <option value="Spring">Spring</option>
+                    <option value="SPRING">Spring</option>
                     <option value="SUMMER SESSION 1">Summer Session 1</option>
                     <option value="SUMMER SESSION 2">Summer Session 2</option>
                     <option value="SUMMER SESSION SPECIAL">Summer Session Special</option>

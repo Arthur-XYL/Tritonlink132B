@@ -41,6 +41,7 @@
     <li><a href="query/ClassRoster.jsp" target="contentFrame">Class Roaster</a></li>
     <li><a href="query/StudentGrade.jsp" target="contentFrame">Student Grade</a></li>
     <li><a href="query/RemainingDegreeRequirements.jsp" target="contentFrame">Student Remaining Degree Requirements</a></li>
+    <li><a href="query/MSRemainingDegreeRequirements.jsp" target="contentFrame">MS Student Remaining Degree Requirements</a></li>
 </ul>
 <iframe name="contentFrame"></iframe>
 </body>
