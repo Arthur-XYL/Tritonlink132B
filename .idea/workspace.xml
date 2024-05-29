@@ -10,9 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e4a9217-d7bf-4168-bc8d-d8b91ebc09af" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/query/MSRemainingDegreeRequirements.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/form/ClassEntry.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/form/ClassEntry.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,14 +31,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/webapp/index.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/webapp/jsp/ClassEntry.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/webapp/jsp/CourseEntry.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/webapp/jsp/DepartmentEntry.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/webapp/jsp/EnrollmentEntry.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/webapp/jsp/FacultyEntry.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/webapp/jsp/ProbationEntry.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/webapp/jsp/ReviewSessionEntry.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/webapp/jsp/StudentEntry.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/webapp/query/ClassSchedule.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -242,7 +233,8 @@
       <workItem from="1716409405312" duration="884000" />
       <workItem from="1716480603207" duration="6975000" />
       <workItem from="1716813314202" duration="5988000" />
-      <workItem from="1716898508921" duration="8418000" />
+      <workItem from="1716898508921" duration="14942000" />
+      <workItem from="1716982141736" duration="3110000" />
     </task>
     <servers />
   </component>
