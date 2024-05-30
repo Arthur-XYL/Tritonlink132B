@@ -43,6 +43,8 @@
     <li><a href="query/RemainingDegreeRequirements.jsp" target="contentFrame">Student Remaining Degree Requirements</a></li>
     <li><a href="query/MSRemainingDegreeRequirements.jsp" target="contentFrame">MS Student Remaining Degree Requirements</a></li>
     <li><a href="query/ClassSchedule.jsp" target="contentFrame">Class Schedule</a></li>
+    <li><a href="query/AvailableReviewSession.jsp" target="contentFrame">Available Review Sessions</a></li>
+    <li><a href="query/DecisionSupport.jsp" target="contentFrame">Decision Support</a></li>
 </ul>
 <iframe name="contentFrame"></iframe>
 </body>
