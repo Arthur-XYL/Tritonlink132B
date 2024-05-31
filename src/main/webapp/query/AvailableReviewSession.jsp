@@ -1,23 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.sql.Date" %>
 <%@ page import="org.example.DatabaseConnection" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Class Schedule Conflict Checker</title>
-    <script>
-        function submitForm() {
-            document.getElementById('classForm').submit();
-        }
-    </script>
 </head>
 <body>
 <h1>Check Class Schedule Conflicts</h1>
-<form method="post" id="classForm">
-    <label for="class">Select Class And Section:</label>
+<form method="post">
+    <label for="start_date">Start Date:</label>
+    <td><input type="date" id="start_date" name="start_date" required></td>
+
+    <label for="end_date">End Date:</label>
+    <td><input type="date" id="end_date" name="end_date" required></td>
+
+    <label for="class">Select Class and Section:</label>
     <select name="class" id="class" required onchange="submitForm()">
-        <option value="">Select a Class and Section</option>
+        <option value="">Select Class and Section</option>
         <%
             Connection conn = null;
             PreparedStatement pstmt = null;
@@ -45,13 +47,14 @@
                 if (conn != null) try { conn.close(); } catch(Exception e) {}
             }
         %>
-    </select>
+    </select><br>
+    <input type="submit" value="Generate Report">
 </form>
 
 <%
     String combinedParam = request.getParameter("class");
-    //String classParam = request.getParameter("class");
-    //String sectionParam = request.getParameter("section");
+    String startDateParam = request.getParameter("start_date");
+    String endDateParam = request.getParameter("end_date");
     if (combinedParam != null && !combinedParam.isEmpty()) {
         try {
             String[] parts = combinedParam.split("_");
@@ -62,7 +65,7 @@
             //conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "123456");
 
             String query = "WITH PrepareSlots AS (" +
-                    "    SELECT generate_series('2018-05-05 08:00:00'::timestamp, '2018-05-09 20:00:00'::timestamp, '1 hour') AS start_time" +
+                    "    SELECT generate_series(?::timestamp, ?::timestamp, '1 hour') AS start_time" +
                     ")," +
                     "PossibleSlots AS (" +
                     "    SELECT * FROM PrepareSlots ps" +
@@ -78,7 +81,7 @@
                     "        SELECT 1" +
                     "        FROM enrollment ee" +
                     "        WHERE ee.class_id = ? AND ee.section_id = ? AND ee.student_id = e.student_id)" +
-                    "    AND m.start_date <= '2018-05-09'::date AND m.end_date >= '2018-05-05'::date" +
+                    "    AND m.start_date <= ? AND m.end_date >= ?" +
                     ")," +
                     "AvailableSlots AS (" +
                     "    SELECT p.start_time" +
@@ -97,16 +100,21 @@
                     " ORDER BY start_time";
             pstmt = conn.prepareStatement(query);
 
-            pstmt.setInt(1, Integer.parseInt(classParam));
-            pstmt.setInt(2, Integer.parseInt(sectionParam));
+            String startTimestamp = startDateParam + " 08:00:00";
+            String endTimestamp = endDateParam + " 20:00:00";
+            pstmt.setTimestamp(1, Timestamp.valueOf(startTimestamp));
+            pstmt.setTimestamp(2, Timestamp.valueOf(endTimestamp));
+            pstmt.setInt(3, Integer.parseInt(classParam));
+            pstmt.setInt(4, Integer.parseInt(sectionParam));
+            pstmt.setDate(5, Date.valueOf(request.getParameter("start_date")));
+            pstmt.setDate(6, Date.valueOf(request.getParameter("end_date")));
             rs = pstmt.executeQuery();
 
             if (!rs.isBeforeFirst()) {
                 out.println("<p>No available time slots for class: "+classParam+" section: "+sectionParam+".</p>");
             } else {
-                out.println("<h2>Possible Review Session Slots for class: "+classParam+" section: "+sectionParam+".</h2>");
 %>
-<%--<h2>Possible Review Session Slots</h2>--%>
+<h2>Possible Review Session Slots</h2>
 <table border="1">
     <thead>
     <tr>

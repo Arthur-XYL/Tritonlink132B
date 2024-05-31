@@ -133,20 +133,24 @@
             }
 
             if ("update".equals(action)) {
-                String updateSQL = "UPDATE meeting SET type = CAST(? AS meeting_type), end_date = ?, end_time = ?, location = ?, is_mandatory = ? WHERE class_id = ? AND section_id = ? AND start_date = ? AND start_time = CAST(? AS time without time zone) AND weekday = CAST(? AS weekday_type)";
+                String updateSQL = "UPDATE meeting SET type = CAST(? AS meeting_type), end_date = ?, end_time = ?, location = ?, is_mandatory = ? WHERE class_id = ? AND section_id = ? AND start_date = ? AND start_time = ? AND weekday = CAST(? AS weekday_type)";
                 pstmt = conn.prepareStatement(updateSQL);
+                // Set parameters for update fields
                 pstmt.setString(1, request.getParameter("type"));
                 pstmt.setDate(2, Date.valueOf(request.getParameter("end_date")));
                 pstmt.setTime(3, Time.valueOf(LocalTime.parse(request.getParameter("end_time"))));
                 pstmt.setString(4, request.getParameter("location"));
                 pstmt.setBoolean(5, Boolean.parseBoolean(request.getParameter("is_mandatory")));
+                // Set parameters for identifying the record
                 pstmt.setInt(6, Integer.parseInt(request.getParameter("class_id")));
                 pstmt.setInt(7, Integer.parseInt(request.getParameter("section_id")));
                 pstmt.setDate(8, Date.valueOf(request.getParameter("start_date")));
                 pstmt.setTime(9, Time.valueOf(LocalTime.parse(request.getParameter("start_time"))));
                 pstmt.setString(10, request.getParameter("weekday"));
-                pstmt.executeUpdate();
+                int updateCount = pstmt.executeUpdate();
+                out.println("<p>Update Count: " + updateCount + "</p>");
             }
+
 
             if ("delete".equals(action)) {
                 String deleteSQL = "DELETE FROM meeting WHERE class_id = ? AND section_id = ? AND start_date = ? AND start_time = ? AND weekday = CAST(? AS weekday_type)";
@@ -232,3 +236,4 @@
 </table>
 </body>
 </html>
+
