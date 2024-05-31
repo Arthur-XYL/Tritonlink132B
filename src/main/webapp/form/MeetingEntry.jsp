@@ -147,8 +147,6 @@
                 pstmt.setDate(8, Date.valueOf(request.getParameter("start_date")));
                 pstmt.setTime(9, Time.valueOf(LocalTime.parse(request.getParameter("start_time"))));
                 pstmt.setString(10, request.getParameter("weekday"));
-                int updateCount = pstmt.executeUpdate();
-                out.println("<p>Update Count: " + updateCount + "</p>");
             }
 
 
