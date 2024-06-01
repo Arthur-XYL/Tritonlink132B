@@ -14,17 +14,16 @@
 <body>
 <h1>Select Student</h1>
 <form method="post" id="studentForm">
-    <label for="student_id">Student:</label>
-    <select name="student_id" id="student_id" required onchange="submitForm()">
+    <label for="ssn">Student:</label>
+    <select name="ssn" id="ssn" required onchange="submitForm()">
         <option value="">Select a student</option>
         <%
             Connection conn = null;
             PreparedStatement pstmt = null;
             ResultSet rs = null;
             try {
-                Class.forName("org.postgresql.Driver");
                 conn = DatabaseConnection.getConnection();
-                String selectSQL = "SELECT DISTINCT s.student_id, s.first_name, s.middle_name, s.last_name " +
+                String selectSQL = "SELECT DISTINCT s.ssn, s.first_name, s.middle_name, s.last_name " +
                         "FROM student s " +
                         "JOIN enrollment e ON s.student_id = e.student_id " +
                         "JOIN class c ON e.class_id = c.class_id " +
@@ -32,13 +31,13 @@
                 pstmt = conn.prepareStatement(selectSQL);
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    int studentId = rs.getInt("student_id");
+                    String ssn = rs.getString("ssn");
                     String firstName = rs.getString("first_name");
                     String middleName = rs.getString("middle_name");
                     String lastName = rs.getString("last_name");
                     String fullName = firstName + (middleName != null && !middleName.isEmpty() ? " " + middleName : "") + " " + lastName;
         %>
-        <option value="<%= studentId %>"><%= fullName %></option>
+        <option value="<%= ssn %>"><%= fullName %></option>
         <%
                 }
             } catch (Exception e) {
@@ -53,49 +52,22 @@
 </form>
 
 <%
-    String studentIdParam = request.getParameter("student_id");
-    if (studentIdParam != null && !studentIdParam.isEmpty()) {
-        int studentId = Integer.parseInt(studentIdParam);
-        String studentName = "";
+    String ssnParam = request.getParameter("ssn");
+    if (ssnParam != null && !ssnParam.isEmpty()) {
         try {
             conn = DatabaseConnection.getConnection();
-            String nameQuery = "SELECT first_name, middle_name, last_name FROM student WHERE student_id = ?";
-            pstmt = conn.prepareStatement(nameQuery);
-            pstmt.setInt(1, studentId);
+            String query = "SELECT c.class_id, c.course_id, c.year, c.quarter, c.title, e.unit, e.section_id " +
+                    "FROM class c " +
+                    "JOIN enrollment e ON c.class_id = e.class_id " +
+                    "JOIN student s ON e.student_id = s.student_id " +
+                    "WHERE s.ssn = ? AND c.year = 2018 AND c.quarter = 'SPRING'";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, ssnParam);
             rs = pstmt.executeQuery();
-            if (rs.next()) {
-                String firstName = rs.getString("first_name");
-                String middleName = rs.getString("middle_name");
-                String lastName = rs.getString("last_name");
-                studentName = firstName + (middleName != null && !middleName.isEmpty() ? " " + middleName : "") + " " + lastName;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) try { rs.close(); } catch(Exception e) {}
-            if (pstmt != null) try { pstmt.close(); } catch(Exception e) {}
-            if (conn != null) try { conn.close(); } catch(Exception e) {}
-        }
-%>
-<h2>Classes Taken by <%= studentName %></h2>
-<%
-    conn = null;
-    pstmt = null;
-    rs = null;
-    try {
-        conn = DatabaseConnection.getConnection();
 
-        String query = "SELECT c.class_id, c.course_id, c.year, c.quarter, c.title, e.unit, e.section_id " +
-                "FROM class c " +
-                "JOIN enrollment e ON c.class_id = e.class_id " +
-                "WHERE e.student_id = ? AND c.year = 2018 AND c.quarter = 'SPRING'";
-        pstmt = conn.prepareStatement(query);
-        pstmt.setInt(1, studentId);
-        rs = pstmt.executeQuery();
-
-        if (!rs.isBeforeFirst()) {
-            out.println("No classes found for the selected student in the current quarter.");
-        } else {
+            if (!rs.isBeforeFirst()) {
+                out.println("No classes found for the selected student in the current quarter.");
+            } else {
 %>
 <table border="1">
     <thead>
