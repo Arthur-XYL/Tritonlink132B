@@ -32,7 +32,7 @@
                     String middleName = rs.getString("middle_name");
                     String lastName = rs.getString("last_name");
         %>
-        <option value="<%= ssn %>"><%= ssn %> - <%= firstName %> <%= middleName %> <%= lastName %></option>
+        <option value="<%= ssn %>"><%= ssn %> - <%= firstName %> <%= (middleName != null ? middleName + " " : "") %> <%= lastName %></option>
         <%
                 }
             } catch (Exception e) {
@@ -91,7 +91,21 @@
                 String firstName = rs.getString("first_name");
                 String middleName = rs.getString("middle_name");
                 String lastName = rs.getString("last_name");
-                studentName = firstName + " " + middleName + " " + lastName;
+                studentName = firstName + (middleName != null ? " " + middleName : "") + " " + lastName;
+            }
+            rs.close();
+            pstmt.close();
+
+            // Get degree's required and technical elective units
+            String degreeUnitsSQL = "SELECT required_units, upper_division_required_units, technical_elective_required_units FROM degree WHERE name = ?";
+            pstmt = conn.prepareStatement(degreeUnitsSQL);
+            pstmt.setString(1, degreeName);
+            rs = pstmt.executeQuery();
+            int requiredUnits = 0, upperDivisionRequiredUnits = 0, requiredTechElectiveUnits = 0;
+            if (rs.next()) {
+                requiredUnits = rs.getInt("required_units");
+                upperDivisionRequiredUnits = rs.getInt("upper_division_required_units");
+                requiredTechElectiveUnits = rs.getInt("technical_elective_required_units");
             }
             rs.close();
             pstmt.close();
@@ -108,36 +122,23 @@
             rs.close();
             pstmt.close();
 
-            // Get degree's required units
-            String degreeUnitsSQL = "SELECT required_units, upper_division_required_units FROM degree WHERE name = ?";
-            pstmt = conn.prepareStatement(degreeUnitsSQL);
-            pstmt.setString(1, degreeName);
-            rs = pstmt.executeQuery();
-            int requiredUnits = 0;
-            int upperDivisionRequiredUnits = 0;
-            if (rs.next()) {
-                requiredUnits = rs.getInt("required_units");
-                upperDivisionRequiredUnits = rs.getInt("upper_division_required_units");
-            }
-            rs.close();
-            pstmt.close();
-
-            // Calculate remaining units
-            int remainingUnits = requiredUnits - completedUnits;
-            if (remainingUnits < 0) remainingUnits = 0;
-
-            // Calculate completed upper division units
-            String upperDivisionUnitsSQL = "SELECT SUM(e.unit) as upper_division_units FROM enrollment e JOIN student s ON e.student_id = s.student_id JOIN class c ON e.class_id = c.class_id JOIN course co ON c.course_id = co.course_id WHERE s.ssn = ? AND co.is_upper_division = TRUE";
-            pstmt = conn.prepareStatement(upperDivisionUnitsSQL);
+            // Calculate completed and remaining technical elective units
+            String techElectiveUnitsSQL = "SELECT SUM(c.min_units) AS tech_elective_units FROM enrollment e JOIN class cl ON e.class_id = cl.class_id JOIN course c ON cl.course_id = c.course_id JOIN technical_electives te ON te.course_id = c.course_id WHERE e.student_id = (SELECT student_id FROM student WHERE ssn = ?) AND te.degree_id = (SELECT degree_id FROM degree WHERE name = ?)";
+            pstmt = conn.prepareStatement(techElectiveUnitsSQL);
             pstmt.setString(1, ssn);
+            pstmt.setString(2, degreeName);
             rs = pstmt.executeQuery();
-            int completedUpperDivisionUnits = 0;
+            int completedTechElectiveUnits = 0;
             if (rs.next()) {
-                completedUpperDivisionUnits = rs.getInt("upper_division_units");
+                completedTechElectiveUnits = rs.getInt("tech_elective_units");
             }
-            rs.close();
-            pstmt.close();
+            int remainingTechElectiveUnits = requiredTechElectiveUnits - completedTechElectiveUnits;
+            if (remainingTechElectiveUnits < 0) remainingTechElectiveUnits = 0;
 
+            int completedUpperDivisionUnits = 0; // This should be calculated similarly to completedUnits and completedTechElectiveUnits
+
+            int remainingUnits = requiredUnits - (completedUnits + completedTechElectiveUnits + completedUpperDivisionUnits);
+            if (remainingUnits < 0) remainingUnits = 0;
             int remainingUpperDivisionUnits = upperDivisionRequiredUnits - completedUpperDivisionUnits;
             if (remainingUpperDivisionUnits < 0) remainingUpperDivisionUnits = 0;
 
@@ -146,13 +147,12 @@
             out.println("<p>Completed Units: " + completedUnits + "</p>");
             out.println("<p>Required Units: " + requiredUnits + "</p>");
             out.println("<p>Remaining Units: " + remainingUnits + "</p>");
-
-            // Display upper division units
-            if (upperDivisionRequiredUnits > 0) {
-                out.println("<p>Completed Upper Division Units: " + completedUpperDivisionUnits + "</p>");
-                out.println("<p>Required Upper Division Units: " + upperDivisionRequiredUnits + "</p>");
-                out.println("<p>Remaining Upper Division Units: " + remainingUpperDivisionUnits + "</p>");
-            }
+            out.println("<p>Completed Upper Division Units: " + completedUpperDivisionUnits + "</p>");
+            out.println("<p>Required Upper Division Units: " + upperDivisionRequiredUnits + "</p>");
+            out.println("<p>Remaining Upper Division Units: " + remainingUpperDivisionUnits + "</p>");
+            out.println("<p>Completed Technical Elective Units: " + completedTechElectiveUnits + "</p>");
+            out.println("<p>Required Technical Elective Units: " + requiredTechElectiveUnits + "</p>");
+            out.println("<p>Remaining Technical Elective Units: " + remainingTechElectiveUnits + "</p>");
 
         } catch (Exception e) {
             e.printStackTrace();

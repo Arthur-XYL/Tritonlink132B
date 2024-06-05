@@ -21,6 +21,7 @@
     <li><a href="form/DegreeEntry.jsp" target="contentFrame">Degrees</a></li>
     <li><a href="form/ConcentrationEntry.jsp" target="contentFrame">Concentration</a></li>
     <li><a href="form/Concentration_CourseEntry.jsp" target="contentFrame">Concentration Course</a></li>
+    <li><a href="form/TechnicalElective.jsp" target="contentFrame">Technical Elective</a></li>
     <li><a href="form/Degree_ConcentrationEntry.jsp" target="contentFrame">Degree Concentration</a></li>
     <li><a href="form/StudentEntry.jsp" target="contentFrame">Students</a></li>
     <li><a href="form/FacultyEntry.jsp" target="contentFrame">Faculty</a></li>
