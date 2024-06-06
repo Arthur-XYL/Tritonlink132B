@@ -110,18 +110,6 @@
             rs.close();
             pstmt.close();
 
-            // Get student's completed units
-            String studentUnitsSQL = "SELECT SUM(e.unit) as completed_units FROM enrollment e JOIN student s ON e.student_id = s.student_id WHERE s.ssn = ?";
-            pstmt = conn.prepareStatement(studentUnitsSQL);
-            pstmt.setString(1, ssn);
-            rs = pstmt.executeQuery();
-            int completedUnits = 0;
-            if (rs.next()) {
-                completedUnits = rs.getInt("completed_units");
-            }
-            rs.close();
-            pstmt.close();
-
             // Calculate completed and remaining technical elective units
             String techElectiveUnitsSQL = "SELECT SUM(c.min_units) AS tech_elective_units FROM enrollment e JOIN class cl ON e.class_id = cl.class_id JOIN course c ON cl.course_id = c.course_id JOIN technical_electives te ON te.course_id = c.course_id WHERE e.student_id = (SELECT student_id FROM student WHERE ssn = ?) AND te.degree_id = (SELECT degree_id FROM degree WHERE name = ?)";
             pstmt = conn.prepareStatement(techElectiveUnitsSQL);
@@ -132,19 +120,33 @@
             if (rs.next()) {
                 completedTechElectiveUnits = rs.getInt("tech_elective_units");
             }
+            rs.close();
+            pstmt.close();
+
             int remainingTechElectiveUnits = requiredTechElectiveUnits - completedTechElectiveUnits;
             if (remainingTechElectiveUnits < 0) remainingTechElectiveUnits = 0;
 
-            int completedUpperDivisionUnits = 0; // This should be calculated similarly to completedUnits and completedTechElectiveUnits
+            // Get student's completed upper division units
+            String upperDivisionUnitsSQL = "SELECT SUM(e.unit) as upper_division_units FROM enrollment e JOIN student s ON e.student_id = s.student_id JOIN class c ON e.class_id = c.class_id JOIN course co ON c.course_id = co.course_id WHERE s.ssn = ? AND co.is_upper_division = TRUE";
+            pstmt = conn.prepareStatement(upperDivisionUnitsSQL);
+            pstmt.setString(1, ssn);
+            rs = pstmt.executeQuery();
+            int completedUpperDivisionUnits = 0;
+            if (rs.next()) {
+                completedUpperDivisionUnits = rs.getInt("upper_division_units");
+            }
+            rs.close();
+            pstmt.close();
 
-            int remainingUnits = requiredUnits - (completedUnits + completedTechElectiveUnits + completedUpperDivisionUnits);
-            if (remainingUnits < 0) remainingUnits = 0;
             int remainingUpperDivisionUnits = upperDivisionRequiredUnits - completedUpperDivisionUnits;
             if (remainingUpperDivisionUnits < 0) remainingUpperDivisionUnits = 0;
 
+            int remainingUnits = requiredUnits - (completedUpperDivisionUnits + completedTechElectiveUnits);
+            if (remainingUnits < 0) remainingUnits = 0;
+
             // Display results
             out.println("<h2>Requirements for " + studentName + " for the degree " + degreeName + "</h2>");
-            out.println("<p>Completed Units: " + completedUnits + "</p>");
+            out.println("<p>Completed Units: " + completedUpperDivisionUnits + completedTechElectiveUnits + "</p>");
             out.println("<p>Required Units: " + requiredUnits + "</p>");
             out.println("<p>Remaining Units: " + remainingUnits + "</p>");
             out.println("<p>Completed Upper Division Units: " + completedUpperDivisionUnits + "</p>");
